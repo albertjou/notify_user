@@ -29,7 +29,7 @@ module NotifyUser
       pn_apns[:aps][:action_id] = notification.params[:action_id] if notification.params[:action_id]
       pn_apns[:aps]['content-available'] = notification.params['content-available'] if notification.params['content-available']
 
-      pn_gcm = {
+      pn_fcm = {
         data: {
           notification_id: notification.id,
           message: notification.mobile_message,
@@ -38,14 +38,14 @@ module NotifyUser
         }
       }
 
-      pn_gcm[:data][:action_id] = notification.params[:action_id] if notification.params[:action_id]
+      pn_fcm[:data][:action_id] = notification.params[:action_id] if notification.params[:action_id]
 
       pubnub.publish(
         channel: notification.target.uuid,
         http_sync: true,
         message: {
           pn_apns: pn_apns,
-          pn_gcm: pn_gcm
+          pn_fcm: pn_fcm
         }
       )
     end
