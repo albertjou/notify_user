@@ -1,4 +1,4 @@
-class GcmChannel
+class FcmChannel
   class << self
 
   	def default_options
